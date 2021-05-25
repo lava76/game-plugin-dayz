@@ -1,17 +1,16 @@
 modded class TerritoryFlag {
-    ref _Event _registeredInstance = new _Event("TerritoryFlag", "pennant", this);
+    ref _Event _registeredInstance;
 
-    override InitRefresherData() {
-        super.InitRefresherData();
+    void TerritoryFlag () {
         if(GetGameLabs()) {
             if(GetGameLabs().IsServer()) {
+                this._registeredInstance = new _Event("TerritoryFlag", "pennant", this);
                 GetGameLabs().RegisterEvent(this._registeredInstance);
             }
         }
     }
 
-    override RemoveRefresherPosition() {
-        super.RemoveRefresherPosition();
+    void ~TerritoryFlag () {
         if(GetGameLabs()) {
             if(GetGameLabs().IsServer()) {
                 if(this._registeredInstance) GetGameLabs().RemoveEvent(this._registeredInstance);
